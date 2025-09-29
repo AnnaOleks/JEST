@@ -1,4 +1,4 @@
-let { sum, isPalindrome, isStrongPassword, wordCount } = require('../src/functions');
+let { sum, isPalindrome, isStrongPassword, wordCount, lastWordLength, longestCommonPrefix, climbStairs, fromArray, toArray, deleteDuplicates, treeFromArray, isSymmetric } = require('../src/functions');
 
 describe("sum function", () => {
     test("sum two numbers", () => {
@@ -56,6 +56,97 @@ describe("Count words in a string", () => {
         });
     })
 })
+
+describe("Length of last word", () => {
+    let strArray = [
+        ["Hello World", "world", 5],
+        ["fly me to the moon", "moon", 4],
+        ["luffy is still joyboy", "joyboy", 6],
+        ["a", "a", 1],
+        ["  a  ", "a", 1],
+        ["single", "single", 6]
+    ]
+    strArray.forEach(elem => {
+        test(`The last word in sentence "${elem[0]}" is "${elem[1]}" with length ${elem[2]}`, () => {
+            expect(lastWordLength(elem[0])).toBe(elem[2])
+        });
+    })
+})
+
+describe("longestCommonPrefix", () => {
+    const cases = [
+        [["flower", "flow", "flight"], "fl"],
+        [["dog", "racecar", "car"], ""],
+        [["interview", "internet", "internal"], "inter"],
+        [["a"], "a"],
+        [[], ""],
+        [["", ""], ""],
+        [["re", "re"], "re"],
+        [["prefix", ""], ""],
+        [["", "prefix"], ""],
+        [["abab", "aba", ""], ""],
+        [["cir", "car"], "c"]
+    ]
+
+    cases.forEach(([arr, expected]) => {
+        test(`Common prefix of [${ arr.join(', ') }] is "${expected}"`, () => {
+            expect(longestCommonPrefix(arr)).toBe(expected);
+        });
+    })
+})
+
+describe('Climbing Stairs', () => {
+    let nArray = [
+        [0, 1], 
+        [1, 1],
+        [2, 2],
+        [3, 3],
+        [4, 5],
+        [5, 8],
+        [10, 89],
+    ];
+    nArray.forEach(elem => {
+        test(`n${elem[0]} - There are ${elem[1]} ways to climb to the top.`, () => {
+            expect(climbStairs(elem[0])).toBe(elem[1])
+        });
+    });
+});
+
+describe('deleteDuplicates (sorted linked list)', () => {
+    duplicatesArray = [
+        [[1, 1, 2], [1, 2]],
+        [[1, 1, 2, 3, 3], [1, 2, 3]],
+        [[1], [1]],                  // один элемент
+        [[1, 1, 1, 1], [1]],         // все одинаковые
+    ];
+
+    duplicatesArray.forEach(([input, expected]) => {
+        test(`from ${JSON.stringify(input)} -> ${JSON.stringify(expected)}`, () => {
+            const head = fromArray(input);
+            const cleaned = deleteDuplicates(head);
+            expect(toArray(cleaned)).toEqual(expected);
+        });
+    });
+});
+
+
+describe('isSymmetric (binary tree)', () => {
+    symmetricArray = [
+        [[1, 2, 2, 3, 4, 4, 3], true],            
+        [[1, 2, 2, null, 3, null, 3], false],      
+        [[1], true],                         
+        [[1, 2, 2, null, 3, 3, null], true],      
+        [[1, 2, 2, 3, null, null, 3, 4], false],    
+    ];
+
+    symmetricArray.forEach(([arr, expected]) => {
+        test(`Tree ${JSON.stringify(arr)} -> ${expected}`, () => {
+            const root = treeFromArray(arr);
+            expect(isSymmetric(root)).toBe(expected);
+        });
+    });
+});
+
 
 // toBeGreaterThan
 // toBeLessThan
