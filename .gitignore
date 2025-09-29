@@ -1,0 +1,11 @@
+node_modules
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+bin/
+obj/
+.vscode/
+Thumbs.db
+.DS_Store
